@@ -1,6 +1,6 @@
 'use strict';
 const CACHE_PREFIX = 'dne-digital-' + encodeURIComponent(new URL(self.registration.scope).pathname) + '-';
-const CACHE = CACHE_PREFIX + 'v1';
+const CACHE = CACHE_PREFIX + 'v2';
 const FILES = ['./', './index.html', './styles.css', './app.js', './qr.js', './manifest.webmanifest', './assets/logo-dne.png', './assets/logos-entidades.png', './assets/icon-192.png', './assets/icon-512.png'];
 const urls = new Set(FILES.map(path => new URL(path, self.registration.scope).href));
 self.addEventListener('install', event => {

@@ -19,11 +19,11 @@
 <body>
   <main id="app">
     <section id="access-screen" class="screen access-screen" aria-labelledby="access-title">
-      <div class="brand-hero"><img src="./assets/logo-dne.png" alt="Dne Digital" width="480" height="480"><span>Dne Digital</span></div>
+      <div class="access-main">
+      <div class="brand-hero"><img src="./assets/logo-dne.png" alt="Dne Digital" width="480" height="480"></div>
       <div class="access-panel">
         <div class="access-content">
-          <div class="eyebrow">PRÉVIA DIGITAL</div>
-          <h1 id="access-title">Já possui uma carteirinha salva?<br>Para acessar, informe:</h1>
+          <h1 id="access-title">Já possui o DNE? Para acessar informe:</h1>
           <form id="access-form">
             <label class="sr-only" for="access-id">CPF ou código de uso</label>
             <div class="input-icon"><input id="access-id" name="identifier" type="text" placeholder="CPF ou Código de Uso" autocomplete="off" maxlength="50" required><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h2v2h-2zM19 19h2v2h-2zM19 14h2v3M14 19h3v2"/></svg></div>
@@ -32,11 +32,13 @@
             <button id="enter-button" class="button primary" type="submit" disabled><span aria-hidden="true">→</span> Entrar</button>
           </form>
           <div class="divider"><span>OU</span></div>
-          <p class="request-copy">Preencha seus dados para criar ou atualizar a prévia da sua carteirinha.</p>
-          <button id="create-button" class="button primary" type="button"><span aria-hidden="true">→</span> Preencher meus dados</button>
-          <footer class="access-footer"><button class="text-button" type="button" data-action="about">Sobre esta versão</button><p>Dados salvos somente neste dispositivo.</p></footer>
+          <p class="request-copy">Solicite um DNE Documento Nacional do Estudante ou acompanhe sua solicitação.</p>
+          <a id="request-button" class="button primary" href="https://www.documentodoestudante.com.br/" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">→</span> Solicite ou acompanhe</a>
+          <footer class="access-footer"><a class="text-button validation-link" href="https://www.meiaentrada.org.br/" target="_blank" rel="noopener noreferrer">Valide sua carteirinha no Meia-Entrada.org</a></footer>
         </div>
       </div>
+      </div>
+      <div class="access-settings"><button id="create-button" class="settings-button" type="button"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 3-.6 2.3-2 .9L4.3 5.5 2 9.5l1.6 1.6v1.8L2 14.5l2.3 4 2.1-.7 2 .9L9 21h6l.6-2.3 2-.9 2.1.7 2.3-4-1.6-1.6v-1.8L22 9.5l-2.3-4-2.1.7-2-.9L15 3z"/><circle cx="12" cy="12" r="3"/></svg>Configurar carteirinha</button></div>
     </section>
 
     <section id="edit-screen" class="screen edit-screen" aria-labelledby="edit-title" hidden>
@@ -61,23 +63,21 @@
           <button id="save-button" class="button primary" type="submit">Salvar e ver carteirinha <span aria-hidden="true">→</span></button>
           <button class="button ghost" type="button" data-action="back">Cancelar</button>
         </form>
+        <div class="settings-actions"><button class="text-button" type="button" data-action="install">Instalar app</button><button class="text-button" type="button" data-action="about">Sobre esta versão</button><button class="text-button danger" type="button" data-action="delete">Apagar dados</button></div>
       </div>
     </section>
 
     <section id="card-screen" class="screen card-screen" aria-labelledby="card-title" hidden>
       <div class="card-wrap">
-        <header class="card-header"><img class="dne-mark" src="./assets/logo-dne.png" alt="Dne Digital"><img class="entities" src="./assets/logos-entidades.png" alt="UNE, UBES e ANPG"></header>
-        <div class="card-toolbar"><h1 id="card-title" tabindex="-1">Minha carteirinha</h1><button class="icon-button" type="button" data-action="fullscreen" aria-label="Ativar tela cheia">⛶</button></div>
-        <div class="preview-banner">DEMONSTRAÇÃO • SEM VALIDADE DOCUMENTAL</div>
-        <div class="ready-banner"><span class="confetti" aria-hidden="true">🎉</span><div><strong>Tudo pronto!</strong><p>Seus dados estão na prévia digital.</p></div><button class="edit-badge" type="button" data-action="edit" aria-label="Editar dados"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m16 3 5 5-12 12-6 1 1-6zM13 6l5 5"/></svg></button></div>
+        <header class="card-header"><button class="brand-back" type="button" data-action="logout" aria-label="Voltar à tela de login"><img class="dne-mark" src="./assets/logo-dne.png" alt="Dne Digital"></button><img class="entities" src="./assets/logos-entidades.png" alt="UNE, UBES e ANPG"></header>
+        <h1 id="card-title" class="sr-only" tabindex="-1">Carteirinha Dne Digital</h1>
+        <div class="ready-banner"><span class="confetti" aria-hidden="true">🎉</span><div><strong>Uhul! Chegou!</strong><p>Desbloquei seu DNE<br> físico e aproveite.</p></div><button class="edit-badge" type="button" data-action="unlock" aria-label="Desbloquear DNE físico"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0"/><circle cx="12" cy="15" r="1"/><path d="M12 16v2"/></svg></button></div>
         <div class="identity-grid">
           <div id="card-photo-wrap" class="portrait-card"></div>
-          <div class="qr-card"><div id="qr-image" role="img" aria-label="QR Code de demonstração, sem validação oficial"></div><span id="card-code"></span><small>QR de demonstração</small></div>
+          <div class="qr-card"><div id="qr-image" role="img" aria-label="QR Code de demonstração, sem validação oficial"></div><span id="card-code"></span></div>
         </div>
-        <article class="details-card"><h2 id="card-name"></h2><dl><div><dt>Instituição de ensino</dt><dd id="card-institution"></dd></div><div><dt>Curso</dt><dd id="card-course"></dd></div><div><dt>Nível de ensino</dt><dd id="card-level"></dd></div><div><dt>CPF / CIN</dt><dd id="card-cpf"></dd></div><div><dt>RG</dt><dd id="card-rg"></dd></div><div><dt>Data de nascimento</dt><dd id="card-birth"></dd></div><div><dt>Validade informada</dt><dd id="card-expiry"></dd></div></dl></article>
-        <div class="card-actions"><button class="button primary" type="button" data-action="edit">Editar dados</button><button class="button secondary" type="button" data-action="install">Instalar app</button></div>
-        <div class="bottom-actions"><button class="text-button" type="button" data-action="logout">Sair da carteirinha</button><button class="text-button danger" type="button" data-action="delete">Apagar dados</button></div>
-        <p class="card-footnote">Prévia local. Não comprova matrícula, emissão ou direito à meia-entrada.</p>
+        <article class="details-card"><h2 id="card-name"></h2><dl><div><dt>Ins. Ensino:</dt><dd id="card-institution"></dd></div><div><dt>Curso:</dt><dd id="card-course"></dd></div><div><dt>Nível de ensino:</dt><dd id="card-level"></dd></div><div hidden><dt>CPF / CIN:</dt><dd id="card-cpf"></dd></div><div><dt>RG:</dt><dd id="card-rg"></dd></div><div><dt>Data de Nasc.</dt><dd id="card-birth"></dd></div><div><dt>Validade:</dt><dd id="card-expiry"></dd></div></dl></article>
+        <div class="wallet-actions"><button class="wallet-button" type="button" data-action="wallet" aria-label="Adicionar à Carteira da Apple"><svg aria-hidden="true" viewBox="0 0 48 38"><rect x="1" y="1" width="46" height="36" rx="5" fill="#dbdbcf"/><path d="M3 5h42v7H3z" fill="#33b3da"/><path d="M3 9h42v7H3z" fill="#52bc72"/><path d="M3 13h42v7H3z" fill="#ffcc39"/><path d="M3 17h42v8H3z" fill="#f78351"/><path d="M3 21h11c3 0 5 7 10 7s7-7 10-7h11v13H3z" fill="#d7d7c8"/></svg><span>Adicionar à <strong>Carteira da Apple</strong></span></button></div>
       </div>
     </section>
   </main>

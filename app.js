@@ -18,7 +18,8 @@
   const expiryFormat = value => {
     if (!value) return 'Não informada';
     const [year,month] = value.split('-').map(Number);
-    return new Intl.DateTimeFormat('pt-BR',{month:'short',year:'numeric'}).format(new Date(year,month-1,1)).replace('.','');
+    const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    return `${months[month-1]}/${year}`;
   };
   function toast(message) { clearTimeout(toastTimer); $('toast').textContent = message; $('toast').hidden = false; toastTimer = setTimeout(() => $('toast').hidden = true, 5000); }
   function error(id,message) { $(id).textContent = message; $(id).hidden = !message; }
@@ -75,7 +76,6 @@
       db.onversionchange = () => { db.close(); persistent = false; toast('O armazenamento foi alterado. Reabra o app para continuar salvando.'); };
     } catch {
       toast('Armazenamento indisponível. Os dados ficarão apenas nesta sessão.');
-      document.querySelector('.access-footer p').textContent = 'Armazenamento indisponível: dados somente nesta sessão.';
     }
   })();
 
@@ -103,11 +103,15 @@
     else {
       const div = document.createElement('div'); div.className = 'initials';
       const strong = document.createElement('strong'); strong.textContent = profile.name.trim().split(/\s+/).filter(Boolean).slice(0,2).map(s => s[0]).join('').toUpperCase();
-      const span = document.createElement('span'); span.textContent = 'Foto não adicionada'; div.append(strong,span); portrait.append(div);
+      const span = document.createElement('span'); span.className = 'sr-only'; span.textContent = 'Foto não adicionada'; div.append(strong,span); portrait.append(div);
     }
     $('qr-image').replaceChildren(window.DneQR.svg(`DNE DIGITAL - DEMONSTRACAO\nID:${profile.demoId}`));
   }
-  function updateAccessButton() { $('enter-button').disabled = !access.checkValidity() || !$('access-id').value.trim(); error('access-error',''); }
+  function updateAccessButton() {
+    $('enter-button').disabled = !access.checkValidity() || !$('access-id').value.trim();
+    $('access-birth').parentElement.classList.toggle('has-value',Boolean($('access-birth').value));
+    error('access-error','');
+  }
   access.addEventListener('input',updateAccessButton);
   access.addEventListener('submit',async event => {
     event.preventDefault(); await initialized;
@@ -116,7 +120,7 @@
     if (profile) {
       if ((normalize(identifier) === normalize(profile.cpf) || normalize(identifier) === normalize(profile.code)) && birth === profile.birth) {
         renderCard(); show('card-screen');
-      } else error('access-error','Esses dados não correspondem à prévia salva neste dispositivo. Use “Preencher meus dados” para criar uma nova.');
+      } else error('access-error','Os dados não correspondem à carteirinha salva. Role até o fim da tela e use “Configurar carteirinha” para editar.');
     } else {
       const digits = identifier.replace(/\D/g,'');
       openEditor({birth, cpf:/^[\d.\-\s]+$/.test(identifier) && digits.length === 11 ? cpfFormat(digits) : '',code:digits.length === 11 && /^[\d.\-\s]+$/.test(identifier) ? '' : identifier});
@@ -189,6 +193,8 @@
       case 'logout': access.reset(); updateAccessButton(); show('access-screen'); break;
       case 'fullscreen': await fullscreen(); break;
       case 'install': await install(); break;
+      case 'unlock': dialog('Desbloquear DNE físico','O desbloqueio de um documento físico depende do serviço do emissor. Esta versão reproduz a interface e não está conectada a esse serviço.'); break;
+      case 'wallet': dialog('Adicionar à Carteira da Apple','Para adicionar à Carteira da Apple, é necessário um passe assinado fornecido pelo emissor. Esta versão ainda não está integrada à emissão de passes.'); break;
       case 'about': dialog('Sobre o Dne Digital','Protótipo visual baseado nas referências fornecidas. Você preenche os dados e visualiza uma carteirinha de demonstração.\n\nOs dados e a foto ficam apenas neste navegador. O acesso por CPF/código e nascimento localiza a prévia local; não é autenticação segura. O QR contém somente um identificador de demonstração.\n\nEmissão, validação oficial e Apple Wallet exigem serviços do emissor.'); break;
       case 'delete': dialog('Apagar dados deste dispositivo?','A foto e os dados da prévia serão removidos deste navegador. Esta ação não pode ser desfeita.',async () => {
         try {

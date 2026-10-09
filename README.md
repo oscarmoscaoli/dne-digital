@@ -4,12 +4,13 @@ Web app responsivo inspirado nas telas fornecidas, pronto para GitHub Pages. Fei
 
 ## Funcionalidades
 
-- Abertura inspirada na segunda imagem, com o logo DNE.
+- Textos e botões da abertura reproduzidos da segunda imagem, com o logo DNE.
+- Botão pequeno **Configurar carteirinha** após a área inicial da tela de login, acessível ao rolar para baixo.
 - Formulário com nome, CPF/CIN, nascimento, RG, código, instituição, curso, nível, validade informada e foto opcional.
-- Carteirinha digital com todos os campos e os logos UNE, UBES e ANPG enviados.
+- Carteirinha digital com os rótulos e botões das referências e os logos UNE, UBES e ANPG enviados. O CPF permanece no cadastro e no acesso, sem uma linha extra na tela da carteirinha.
 - Foto comprimida no dispositivo e armazenada junto do perfil.
 - Dados persistidos em IndexedDB no navegador. Somente uma prévia por navegador/endereço base do app.
-- Edição, acesso à prévia salva por CPF ou código e nascimento, saída e exclusão dos dados.
+- Configuração dos dados a partir da tela de login, acesso por CPF ou código e nascimento, saída pelo logo DNE e exclusão no painel de configuração.
 - QR Code real que codifica apenas `DNE DIGITAL - DEMONSTRACAO` e um ID aleatório local. Não contém CPF, nome ou foto, não abre um serviço de validação e não é um QR de emissão oficial.
 - Layout que ocupa o viewport, botão de tela cheia e PWA com manifest e service worker para uso offline após o primeiro carregamento.
 
@@ -37,15 +38,22 @@ Abra `http://localhost:8080`. Use um servidor HTTP para testar PWA, armazenament
 
 ## Fluxo
 
-1. Abra o app: a tela de acesso é exibida.
-2. Se não existir prévia local, informe CPF/código e nascimento e clique em **Entrar**: o formulário abre com esses dados. Ou clique em **Preencher meus dados**.
-3. Complete os campos obrigatórios e, se quiser, adicione foto e validade. Clique em **Salvar e ver carteirinha**.
-4. A tela seguinte exibe os dados. **Editar dados** reabre o formulário.
-5. **Sair da carteirinha** volta à tela de abertura sem excluir o perfil. Para reabri-lo, use o CPF/código e nascimento salvos.
-6. **Preencher meus dados** reabre o perfil local para edição mesmo sem verificar CPF/nascimento; esse é um protótipo local, não um controle de acesso.
-7. **Apagar dados** remove o perfil após a confirmação.
+1. Abra o app: a tela de login mostra os textos da imagem enviada.
+2. Para configurar os dados, **role para baixo**. O botão pequeno **Configurar carteirinha** fica após um bloco que ocupa pelo menos a altura da tela; assim ele não aparece na área inicial, inclusive em telas altas.
+3. Clique no botão, preencha os campos e escolha a foto. **Salvar e ver carteirinha** abre a tela seguinte com os dados.
+4. Para voltar ao login, toque no **logo DNE** no canto superior da carteirinha. Role até **Configurar carteirinha** para editar os dados salvos.
+5. **Entrar** abre a carteirinha quando CPF/código e nascimento correspondem ao cadastro local. Sem cadastro salvo, abre o formulário com os dados informados.
+6. O painel de configuração reúne **Instalar app**, **Sobre esta versão** e **Apagar dados**. A exclusão pede confirmação.
 
-A validade é um campo visual definido pelo usuário, sem atestar matrícula ou status. Sem foto, a tela mostra iniciais. Sem código informado, é criado um código com prefixo `DEMO-`. Não há verificação de dígitos do CPF nesta versão; apenas máscara de entrada.
+O botão **Solicite ou acompanhe** abre `https://www.documentodoestudante.com.br/`. O texto **Valide sua carteirinha no Meia-Entrada.org** preserva a grafia da imagem e aponta para `https://www.meiaentrada.org.br/`, endereço de validação indicado no site do emissor.
+
+O banner preserva literalmente **Uhul! Chegou!** e **Desbloquei seu DNE físico e aproveite.**, inclusive a grafia da referência. Ele é visual, sem consulta a status de entrega. O cadeado informa que o desbloqueio depende da integração com o emissor.
+
+**Adicionar à Carteira da Apple** reproduz o rótulo e o botão preto da referência. Ao clicar, explica que é necessário um passe assinado; esta entrega não emite passes.
+
+Na carteirinha, os rótulos são **Ins. Ensino:**, **Curso:**, **Nível de ensino:**, **RG:**, **Data de Nasc.** e **Validade:**. A validade usa o formato da referência, por exemplo **Mar/2027**. Os valores vêm do cadastro, sem copiar a identidade dos exemplos.
+
+A validade é visual, sem atestar matrícula ou status. Sem foto, aparecem iniciais. Sem código, é criado um código com prefixo `DEMO-`. O QR continua contendo apenas um identificador de demonstração. Não há verificação de dígitos do CPF, apenas máscara de entrada.
 
 ## Tela cheia e instalação
 
@@ -53,7 +61,7 @@ O layout usa `100dvh`, `100vh` de fallback e safe-area para ocupar a área dispo
 
 O manifest pede `display: fullscreen`. O comportamento final depende do navegador/sistema; alguns usam modo standalone. No Android/desktop, use **Instalar app** ou a opção de instalação do navegador. No iPhone/iPad, abra no Safari → Compartilhar → Adicionar à Tela de Início. HTTPS é necessário fora de localhost. A disponibilidade da instalação depende também dos critérios do navegador.
 
-Após o primeiro carregamento online, a interface pode abrir offline. O service worker armazena somente arquivos estáticos deste projeto, não o perfil. Ao atualizar arquivos estáticos, incremente `v1` em `service-worker.js` para renovar o cache.
+Após o primeiro carregamento online, a interface pode abrir offline. O service worker armazena somente arquivos estáticos deste projeto, não o perfil. Esta atualização usa o cache `v2`. Ao atualizar arquivos estáticos novamente, incremente `v2` em `service-worker.js` para renovar o cache.
 
 ## Arquivos
 
@@ -77,7 +85,7 @@ As imagens 2 a 5 serviram como referência de interface. As fotos de exemplo des
 
 ## Escopo e próximas integrações
 
-Esta entrega é um **protótipo funcional de interface**, identificado na carteirinha como demonstração e sem validade documental. Não é o aplicativo oficial de um emissor.
+Esta entrega é um **protótipo funcional de interface** sem validade documental. As telas principais preservam os textos das referências; a explicação do protótipo fica na configuração e em **Sobre esta versão**. O QR e os códigos gerados continuam identificados como demonstração. Não é o aplicativo oficial de um emissor.
 
 O acesso local por CPF/código e nascimento **não é autenticação segura**. Os dados não são enviados a servidor e não sincronizam entre dispositivos. Quem tiver acesso ao mesmo perfil do navegador pode visualizar/editar a prévia. Limpar os dados do site remove os dados pessoais. Se o armazenamento estiver bloqueado, o app funciona na sessão e informa essa limitação.
 
@@ -88,7 +96,7 @@ Para transformar esta versão em um produto integrado, ainda é necessário defi
 - API/backend responsável por cadastro, acesso e retorno de carteirinhas já emitidas.
 - Emissor e endpoint oficial para validar códigos/QR, status e validade.
 - Regras de autorização: quem pode editar dados de uma carteirinha emitida.
-- Integração Apple Wallet/Google Wallet. A entrega não inclui um botão que simule a criação de um passe oficial. Apple Wallet exige um passe assinado e serviços do emissor.
+- Integração Apple Wallet/Google Wallet. O botão Apple Wallet está presente para reproduzir a referência e abre uma explicação; não simula emissão bem-sucedida. Apple Wallet exige um passe assinado e serviços do emissor.
 
 
 ## Verificação
@@ -96,3 +104,7 @@ Para transformar esta versão em um produto integrado, ainda é necessário defi
 Foi verificada a sintaxe JavaScript e o fluxo de cadastro, exibição, edição, saída/retorno, comparação de dados de acesso, exclusão e tratamento de conteúdo HTML como texto em um ambiente DOM simulado, com armazenamento simulado. O gerador QR foi comparado a uma implementação independente. Foram conferidos os caminhos dos arquivos e o manifest.
 
 O ambiente de execução não disponibilizou um navegador e o download do Chromium falhou. Portanto, renderização visual, upload de foto/canvas, IndexedDB real, service worker offline, instalação PWA e modo de tela cheia ainda precisam de um teste em navegador/dispositivo. Há um checklist em `TESTES-MANUAIS.md`.
+
+## Atualizar uma instalação existente
+
+Substitua no repositório os arquivos do projeto pelos arquivos deste ZIP, inclusive `service-worker.js`, `index.html`, `styles.css` e `app.js`. A versão do cache passou de `v1` para `v2`; ela remove os arquivos estáticos antigos após a atualização do service worker. Se a versão anterior ainda aparecer, feche e reabra o app, ou recarregue a página. O armazenamento IndexedDB usa o mesmo endereço base e preserva o cadastro existente.
