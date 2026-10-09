@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e5e9f5">
+  <meta name="description" content="Dne Digital — protótipo de carteirinha digital com dados armazenados neste dispositivo.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Dne Digital">
+  <title>Dne Digital</title>
+  <link rel="icon" type="image/png" href="./assets/logo-dne.png">
+  <link rel="apple-touch-icon" href="./assets/logo-dne.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./qr.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <main id="app">
+    <section id="access-screen" class="screen access-screen" aria-labelledby="access-title">
+      <div class="brand-hero"><img src="./assets/logo-dne.png" alt="Dne Digital" width="480" height="480"><span>Dne Digital</span></div>
+      <div class="access-panel">
+        <div class="access-content">
+          <div class="eyebrow">PRÉVIA DIGITAL</div>
+          <h1 id="access-title">Já possui uma carteirinha salva?<br>Para acessar, informe:</h1>
+          <form id="access-form">
+            <label class="sr-only" for="access-id">CPF ou código de uso</label>
+            <div class="input-icon"><input id="access-id" name="identifier" type="text" placeholder="CPF ou Código de Uso" autocomplete="off" maxlength="50" required><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h2v2h-2zM19 19h2v2h-2zM19 14h2v3M14 19h3v2"/></svg></div>
+            <div class="date-field"><label for="access-birth">Data de nascimento</label><input id="access-birth" name="birth" type="date" autocomplete="bday" required></div>
+            <p id="access-error" class="form-error" role="alert" hidden></p>
+            <button id="enter-button" class="button primary" type="submit" disabled><span aria-hidden="true">→</span> Entrar</button>
+          </form>
+          <div class="divider"><span>OU</span></div>
+          <p class="request-copy">Preencha seus dados para criar ou atualizar a prévia da sua carteirinha.</p>
+          <button id="create-button" class="button primary" type="button"><span aria-hidden="true">→</span> Preencher meus dados</button>
+          <footer class="access-footer"><button class="text-button" type="button" data-action="about">Sobre esta versão</button><p>Dados salvos somente neste dispositivo.</p></footer>
+        </div>
+      </div>
+    </section>
+
+    <section id="edit-screen" class="screen edit-screen" aria-labelledby="edit-title" hidden>
+      <header class="topbar"><button class="icon-button" type="button" data-action="back" aria-label="Voltar">←</button><span>Dne Digital</span><button class="icon-button" type="button" data-action="fullscreen" aria-label="Ativar tela cheia">⛶</button></header>
+      <div class="editor-wrap">
+        <div class="eyebrow">SUA PRÉVIA DIGITAL</div><h1 id="edit-title" tabindex="-1">Dados da carteirinha</h1><p class="muted">Preencha os campos abaixo. Ao salvar, os dados aparecem na próxima tela.</p>
+        <form id="profile-form">
+          <div class="photo-picker"><div id="photo-preview" class="photo-placeholder" aria-label="Prévia da foto"><svg aria-hidden="true" viewBox="0 0 48 48"><circle cx="24" cy="17" r="8"/><path d="M8 43v-4a16 16 0 0 1 32 0v4"/></svg></div><div><label class="button secondary upload-label" for="photo-input">Escolher foto</label><input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp" class="sr-only"><p class="muted small">JPG, PNG ou WebP • até 8 MB</p><button id="remove-photo" class="text-button" type="button">Remover foto</button></div></div>
+          <div class="form-grid">
+            <label class="field span-two">Nome completo *<input name="name" id="profile-name" autocomplete="name" maxlength="100" required placeholder="Como aparece no seu documento"></label>
+            <label class="field">CPF / CIN<input name="cpf" id="profile-cpf" inputmode="numeric" autocomplete="off" maxlength="14" placeholder="000.000.000-00"></label>
+            <label class="field">Data de nascimento *<input name="birth" id="profile-birth" type="date" autocomplete="bday" required></label>
+            <label class="field">RG<input name="rg" id="profile-rg" maxlength="30" placeholder="Número do RG"></label>
+            <label class="field">Código de uso<input name="code" id="profile-code" maxlength="50" placeholder="Seu código, se houver"><span class="field-hint">Sem código? Um identificador de demonstração será criado.</span></label>
+            <label class="field span-two">Instituição de ensino *<input name="institution" id="profile-institution" maxlength="140" required placeholder="Nome da escola ou universidade"></label>
+            <label class="field">Curso *<input name="course" id="profile-course" maxlength="100" required placeholder="Nome do curso"></label>
+            <label class="field">Nível de ensino *<select name="level" id="profile-level" required><option value="">Selecione</option><option>Ensino Fundamental</option><option>Ensino Médio</option><option>Técnico</option><option>Graduação</option><option>Pós-graduação</option><option>Mestrado</option><option>Doutorado</option><option>Outro</option></select></label>
+            <label class="field">Validade informada<input name="expiry" id="profile-expiry" type="month"><span class="field-hint">Campo visual; não comprova emissão ou validade.</span></label>
+          </div>
+          <p class="small muted">* Campos obrigatórios. Esta prévia não tem validade documental.</p>
+          <p id="profile-error" class="form-error" role="alert" hidden></p>
+          <button id="save-button" class="button primary" type="submit">Salvar e ver carteirinha <span aria-hidden="true">→</span></button>
+          <button class="button ghost" type="button" data-action="back">Cancelar</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="card-screen" class="screen card-screen" aria-labelledby="card-title" hidden>
+      <div class="card-wrap">
+        <header class="card-header"><img class="dne-mark" src="./assets/logo-dne.png" alt="Dne Digital"><img class="entities" src="./assets/logos-entidades.png" alt="UNE, UBES e ANPG"></header>
+        <div class="card-toolbar"><h1 id="card-title" tabindex="-1">Minha carteirinha</h1><button class="icon-button" type="button" data-action="fullscreen" aria-label="Ativar tela cheia">⛶</button></div>
+        <div class="preview-banner">DEMONSTRAÇÃO • SEM VALIDADE DOCUMENTAL</div>
+        <div class="ready-banner"><span class="confetti" aria-hidden="true">🎉</span><div><strong>Tudo pronto!</strong><p>Seus dados estão na prévia digital.</p></div><button class="edit-badge" type="button" data-action="edit" aria-label="Editar dados"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m16 3 5 5-12 12-6 1 1-6zM13 6l5 5"/></svg></button></div>
+        <div class="identity-grid">
+          <div id="card-photo-wrap" class="portrait-card"></div>
+          <div class="qr-card"><div id="qr-image" role="img" aria-label="QR Code de demonstração, sem validação oficial"></div><span id="card-code"></span><small>QR de demonstração</small></div>
+        </div>
+        <article class="details-card"><h2 id="card-name"></h2><dl><div><dt>Instituição de ensino</dt><dd id="card-institution"></dd></div><div><dt>Curso</dt><dd id="card-course"></dd></div><div><dt>Nível de ensino</dt><dd id="card-level"></dd></div><div><dt>CPF / CIN</dt><dd id="card-cpf"></dd></div><div><dt>RG</dt><dd id="card-rg"></dd></div><div><dt>Data de nascimento</dt><dd id="card-birth"></dd></div><div><dt>Validade informada</dt><dd id="card-expiry"></dd></div></dl></article>
+        <div class="card-actions"><button class="button primary" type="button" data-action="edit">Editar dados</button><button class="button secondary" type="button" data-action="install">Instalar app</button></div>
+        <div class="bottom-actions"><button class="text-button" type="button" data-action="logout">Sair da carteirinha</button><button class="text-button danger" type="button" data-action="delete">Apagar dados</button></div>
+        <p class="card-footnote">Prévia local. Não comprova matrícula, emissão ou direito à meia-entrada.</p>
+      </div>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="info-dialog"><div class="dialog-content"><h2 id="dialog-title"></h2><p id="dialog-text"></p><div class="dialog-actions"><button id="dialog-cancel" class="button secondary" type="button" hidden>Cancelar</button><button id="dialog-confirm" class="button primary" type="button">Entendi</button></div></div></dialog>
+  <noscript><p class="noscript">Ative o JavaScript para usar o Dne Digital.</p></noscript>
+</body>
+</html>
