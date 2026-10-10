@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#e5e9f5">
-  <meta name="description" content="Dne Digital — protótipo de carteirinha digital com dados armazenados neste dispositivo.">
+  <meta name="description" content="Dne Digital — demonstração visual da carteirinha, com informações guardadas apenas neste dispositivo.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Dne Digital">
@@ -13,6 +13,7 @@
   <link rel="apple-touch-icon" href="./assets/logo-dne.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./enhancements.css">
   <script defer src="./qr.js"></script>
   <script defer src="./app.js"></script>
 </head>
@@ -20,7 +21,7 @@
   <main id="app">
     <section id="access-screen" class="screen access-screen" aria-labelledby="access-title">
       <div class="access-main">
-      <div class="brand-hero"><img src="./assets/logo-dne.png" alt="Dne Digital" width="480" height="480"></div>
+      <div class="brand-hero"><img src="./assets/app-icon-original.webp" alt="Dne Digital" width="480" height="480"></div>
       <div class="access-panel">
         <div class="access-content">
           <h1 id="access-title">Já possui o DNE? Para acessar informe:</h1>
@@ -44,7 +45,7 @@
     <section id="edit-screen" class="screen edit-screen" aria-labelledby="edit-title" hidden>
       <header class="topbar"><button class="icon-button" type="button" data-action="back" aria-label="Voltar">←</button><span>Dne Digital</span><button class="icon-button" type="button" data-action="fullscreen" aria-label="Ativar tela cheia">⛶</button></header>
       <div class="editor-wrap">
-        <div class="eyebrow">SUA PRÉVIA DIGITAL</div><h1 id="edit-title" tabindex="-1">Dados da carteirinha</h1><p class="muted">Preencha os campos abaixo. Ao salvar, os dados aparecem na próxima tela.</p>
+        <div class="editor-intro-illustration" aria-hidden="true"><img src="./assets/carteirinha-ilustracao.svg" alt=""></div><div class="eyebrow">SUA PRÉVIA DIGITAL</div><h1 id="edit-title" tabindex="-1">Dados da carteirinha</h1><p class="muted">Preencha os campos abaixo. Ao salvar, os dados aparecem na próxima tela.</p>
         <form id="profile-form">
           <div class="photo-picker"><div id="photo-preview" class="photo-placeholder" aria-label="Prévia da foto"><svg aria-hidden="true" viewBox="0 0 48 48"><circle cx="24" cy="17" r="8"/><path d="M8 43v-4a16 16 0 0 1 32 0v4"/></svg></div><div><label class="button secondary upload-label" for="photo-input">Escolher foto</label><input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp" class="sr-only"><p class="muted small">JPG, PNG ou WebP • até 8 MB</p><button id="remove-photo" class="text-button" type="button">Remover foto</button></div></div>
           <div class="form-grid">
@@ -69,15 +70,17 @@
 
     <section id="card-screen" class="screen card-screen" aria-labelledby="card-title" hidden>
       <div class="card-wrap">
-        <header class="card-header"><button class="brand-back" type="button" data-action="logout" aria-label="Voltar à tela de login"><img class="dne-mark" src="./assets/logo-dne.png" alt="Dne Digital"></button><img class="entities" src="./assets/logos-entidades.png" alt="UNE, UBES e ANPG"></header>
+        <header class="card-header"><button class="brand-back" type="button" data-action="logout" aria-label="Voltar à tela de login"><img class="dne-mark" src="./assets/logo-dne-horizontal.svg" alt="Dne Digital"></button><img class="entities" src="./assets/logos-entidades-original.webp" alt="UNE, UBES e ANPG"></header>
         <h1 id="card-title" class="sr-only" tabindex="-1">Carteirinha Dne Digital</h1>
-        <div class="ready-banner"><span class="confetti" aria-hidden="true">🎉</span><div><strong>Uhul! Chegou!</strong><p>Desbloquei seu DNE<br> físico e aproveite.</p></div><button class="edit-badge" type="button" data-action="unlock" aria-label="Desbloquear DNE físico"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0"/><circle cx="12" cy="15" r="1"/><path d="M12 16v2"/></svg></button></div>
+        <p class="demo-caption">PRÉVIA DE DEMONSTRAÇÃO · SEM VALIDADE DOCUMENTAL</p>
+        <div class="ready-banner"><img class="confetti" src="./assets/desbloqueio-celebracao.svg" alt="" aria-hidden="true"><div><strong>Uhul! Chegou!</strong><p>Desbloquei seu DNE<br> físico e aproveite.</p></div><button class="edit-badge" type="button" data-action="unlock" aria-label="Desbloquear DNE físico"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0"/><circle cx="12" cy="15" r="1"/><path d="M12 16v2"/></svg></button></div>
         <div class="identity-grid">
           <div id="card-photo-wrap" class="portrait-card"></div>
           <div class="qr-card"><div id="qr-image" role="img" aria-label="QR Code de demonstração, sem validação oficial"></div><span id="card-code"></span></div>
         </div>
         <article class="details-card"><h2 id="card-name"></h2><dl><div><dt>Ins. Ensino:</dt><dd id="card-institution"></dd></div><div><dt>Curso:</dt><dd id="card-course"></dd></div><div><dt>Nível de ensino:</dt><dd id="card-level"></dd></div><div hidden><dt>CPF / CIN:</dt><dd id="card-cpf"></dd></div><div><dt>RG:</dt><dd id="card-rg"></dd></div><div><dt>Data de Nasc.</dt><dd id="card-birth"></dd></div><div><dt>Validade:</dt><dd id="card-expiry"></dd></div></dl></article>
-        <div class="wallet-actions"><button class="wallet-button" type="button" data-action="wallet" aria-label="Adicionar à Carteira da Apple"><svg aria-hidden="true" viewBox="0 0 48 38"><rect x="1" y="1" width="46" height="36" rx="5" fill="#dbdbcf"/><path d="M3 5h42v7H3z" fill="#33b3da"/><path d="M3 9h42v7H3z" fill="#52bc72"/><path d="M3 13h42v7H3z" fill="#ffcc39"/><path d="M3 17h42v8H3z" fill="#f78351"/><path d="M3 21h11c3 0 5 7 10 7s7-7 10-7h11v13H3z" fill="#d7d7c8"/></svg><span>Adicionar à <strong>Carteira da Apple</strong></span></button></div>
+        <div class="wallet-actions"><button class="wallet-original-button" type="button" data-action="wallet" aria-label="Adicionar à Carteira da Apple"><img src="./assets/apple-wallet-original.svg" alt="Adicionar à Carteira da Apple"></button></div>
+        <p class="card-disclaimer">Visualização local. Não serve como documento de identificação, comprovante de matrícula ou carteirinha emitida.</p>
       </div>
     </section>
   </main>

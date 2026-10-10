@@ -20,3 +20,11 @@ Abra o app por localhost ou pelo endereço HTTPS do GitHub Pages.
 
 15. Confira os rótulos da carteirinha, **Uhul! Chegou!**, **Desbloquei seu DNE físico e aproveite.** e **Adicionar à Carteira da Apple**. Cadeado e Apple Wallet devem abrir uma explicação da integração pendente, sem indicar emissão bem-sucedida.
 16. Confira os links **Solicite ou acompanhe** e **Valide sua carteirinha no Meia-Entrada.org**.
+
+
+## Atualização com os assets originais (v3)
+- Confirmar logo horizontal do DNE e logos UNE/UBES/ANPG em tela de carteirinha.
+- Confirmar ilustração de comemoração e imagem original da Carteira da Apple.
+- Confirmar que o botão Configurar carteirinha só aparece depois de rolar.
+- Confirmar carregamento offline dos novos recursos após uma visita online.
+- Confirmar que a legenda visível marca a carteirinha como demonstração.

@@ -1,0 +1,63 @@
+/* DNE Digital: aprimoramentos aplicados sobre o projeto anterior.
+   Recursos visuais extraídos do pacote Android fornecido pelo usuário. */
+:root {
+  --blue: #2951a2;
+  --bg: #e8ecf8;
+  --ink: #34373e;
+}
+body { background: var(--bg); }
+.brand-hero img { object-fit: contain; }
+.brand-hero { padding-bottom: 5px; }
+.access-screen { background: #fff; }
+/* O botão de configuração não pode aparecer antes de o usuário rolar. */
+.access-main { min-height: 100vh; min-height: 100dvh; }
+.access-settings { min-height: 92px; }
+.settings-button { opacity: .82; }
+.settings-button:focus-visible { opacity: 1; }
+
+/* Elementos originais do aplicativo Android na apresentação da prévia. */
+.card-header { min-height: 58px; margin-bottom: 20px; }
+.card-header .dne-mark { width: min(190px, 46vw); height: auto; max-height: 76px; object-fit: contain; object-position: left center; }
+.card-header .entities { width: min(192px, 45vw); max-width: 48%; object-fit: contain; }
+.card-screen::before { opacity: .52; }
+.card-screen::after {
+  content: ''; position: absolute; z-index: -1;
+  background: url('./assets/linha-decorativa-1.svg') center / contain no-repeat;
+  pointer-events: none; width: 460px; height: 240px;
+  right: max(-130px, calc(50% - 520px)); bottom: 28px;
+  opacity: .4;
+}
+.demo-caption {
+  text-align: center; margin: 0 0 12px; font-weight: 700;
+  font-size: .65rem; letter-spacing: .055em; color: #705682;
+}
+.ready-banner { box-shadow: 0 5px 20px rgba(53, 62, 91, .04); }
+.ready-banner .confetti { display: block; width: 56px; height: 56px; object-fit: contain; flex: none; }
+.ready-banner p { max-width: 32ch; }
+.portrait-card, .qr-card, .details-card { box-shadow: 0 5px 24px rgba(53, 62, 91, .035); }
+.wallet-original-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: none; border: none; padding: 0; border-radius: 12px;
+  min-width: 160px; min-height: 48px;
+}
+.wallet-original-button img { display: block; width: 222px; max-width: 80vw; height: auto; }
+.wallet-original-button:hover { filter: brightness(1.08); }
+.wallet-original-button:focus-visible { outline: 3px solid #729aed; outline-offset: 4px; }
+.card-disclaimer { max-width: 440px; margin: 10px auto 3px; text-align: center; line-height: 1.55; font-size: .69rem; color: #525b72; }
+/* Figura informativa exibida somente no editor, sem confundi-la com a prévia pessoal. */
+.editor-wrap { position: relative; overflow: hidden; }
+.editor-intro-illustration { float: right; width: 164px; padding: 2px 0 12px 16px; opacity: .95; }
+.editor-intro-illustration img { width: 100%; height: auto; }
+#edit-title { position: relative; }
+@media (max-width: 520px) {
+  .card-header .dne-mark { width: 152px; }
+  .card-header .entities { width: 164px; }
+  .ready-banner .confetti { width: 46px; height: 46px; }
+  .demo-caption { font-size: .58rem; }
+  .editor-intro-illustration { width: 100px; padding-left: 12px; }
+}
+@media (max-width: 350px) {
+  .card-header .dne-mark { width: 129px; }
+  .card-header .entities { width: 140px; }
+  .ready-banner .confetti { width: 38px; height: 38px; }
+}

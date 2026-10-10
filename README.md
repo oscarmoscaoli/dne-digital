@@ -1,3 +1,17 @@
+# Dne Digital — Interface web, edição com recursos extraídos do APK
+
+**Versão atualizada:** preserva o projeto web anterior, os textos e botões já aprovados e o fluxo de login → carteirinha. Substitui elementos gráficos pelos recursos originais extraídos do APK fornecido e melhora o acabamento visual no celular/desktop. O botão pequeno **Configurar carteirinha** permanece somente abaixo do conteúdo da primeira tela: é preciso rolar para baixo para encontrá-lo.
+
+**Aviso:** este é um protótipo local de interface sem autenticação do emissor, sem assinatura e sem emissão ou validação de documento. A prévia da carteirinha tem aviso visível e o QR armazena apenas um ID de demonstração. Nenhuma credencial é gerada.
+
+**Publicação:** descompacte o arquivo ZIP e envie todos os arquivos que estão dentro da pasta `dne-digital/` para a raiz do repositório GitHub. Em Settings → Pages, publique a branch `main` a partir de `/ (root)`. Não envie apenas o arquivo ZIP.
+
+**Recursos integrados do APK:** ícone/splash original, logo DNE horizontal, logos UNE/UBES/ANPG, selo oficial do botão Apple Wallet (apenas visual), figura da carteirinha, ilustração de comemoração e linha decorativa. Todos estão em `assets/`, funcionam offline depois do primeiro carregamento e não precisam de CDN.
+
+**Atenção a direitos e marca:** os elementos extraídos continuam pertencendo aos respectivos titulares. Confirme sua autorização para republicá-los. Não apresente este projeto como app oficial, nem utilize seu QR como validador.
+
+---
+
 # Dne Digital
 
 Web app responsivo inspirado nas telas fornecidas, pronto para GitHub Pages. Feito em HTML, CSS e JavaScript, sem build, npm, serviços de terceiros ou dependências externas.

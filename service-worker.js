@@ -1,7 +1,7 @@
 'use strict';
 const CACHE_PREFIX = 'dne-digital-' + encodeURIComponent(new URL(self.registration.scope).pathname) + '-';
-const CACHE = CACHE_PREFIX + 'v2';
-const FILES = ['./', './index.html', './styles.css', './app.js', './qr.js', './manifest.webmanifest', './assets/logo-dne.png', './assets/logos-entidades.png', './assets/icon-192.png', './assets/icon-512.png'];
+const CACHE = CACHE_PREFIX + 'v3';
+const FILES = ['./', './index.html', './styles.css', './enhancements.css', './app.js', './qr.js', './manifest.webmanifest', './assets/logo-dne.png', './assets/logos-entidades.png', './assets/icon-192.png', './assets/icon-512.png', './assets/app-icon-original.webp', './assets/logo-dne-horizontal.svg', './assets/logo-dne-digital.svg', './assets/logos-entidades-original.webp', './assets/carteirinha-ilustracao.svg', './assets/desbloqueio-celebracao.svg', './assets/apple-wallet-original.svg', './assets/linha-decorativa-1.svg', './assets/linha-decorativa-2.svg'];
 const urls = new Set(FILES.map(path => new URL(path, self.registration.scope).href));
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)).then(() => self.skipWaiting()));
